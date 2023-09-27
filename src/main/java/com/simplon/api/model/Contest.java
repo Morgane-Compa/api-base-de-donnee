@@ -1,12 +1,14 @@
 package com.simplon.api.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -29,4 +31,7 @@ public class Contest {
     
     @ManyToOne
     private Player winner;
+
+    @ManyToMany(mappedBy = "contests")
+    private List<Player> Player;
 }

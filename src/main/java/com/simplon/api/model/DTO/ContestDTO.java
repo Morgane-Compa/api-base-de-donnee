@@ -29,5 +29,7 @@ public class ContestDTO {
         //     this.winner = "pas de vainqueur";
         // }
         this.winner = contest.getWinner() != null ? contest.getWinner().getNickname() : "pas de vainqueurs";
+
+        
     }
 }
