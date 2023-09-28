@@ -89,12 +89,12 @@ public class ContestController {
 
     // Modifie un jeu 
     @PutMapping("/contest/{id}")
-    public Contest updateContest(@PathVariable("id") long id, @RequestBody Contest contest) {
+    public ContestDTO updateContest(@PathVariable("id") long id, @RequestBody Contest contest) {
         Optional<Contest> g = contestService.getContest(id);
         if(g.isPresent()) {
             contest.setId(id);
             
-            return contestService.saveContest(contest);
+            return new ContestDTO(contestService.saveContest(contest));
         }
         return null;
     }

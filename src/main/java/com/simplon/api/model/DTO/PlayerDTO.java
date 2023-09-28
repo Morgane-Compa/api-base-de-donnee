@@ -14,6 +14,7 @@ public class PlayerDTO {
     private String email;
     private String nickname;
     private List<String> wins;
+    private Integer contests;
 
     public PlayerDTO(Player player) {
         this.id = player.getId();
@@ -28,6 +29,8 @@ public class PlayerDTO {
                 );
             }
         }
+
+        this.contests = player.getContests().size();
     }
 
 }

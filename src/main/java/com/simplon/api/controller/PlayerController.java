@@ -1,5 +1,7 @@
 package com.simplon.api.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simplon.api.model.Contest;
 import com.simplon.api.model.Player;
+import com.simplon.api.model.DTO.ContestDTO;
+import com.simplon.api.model.DTO.PlayerDTO;
 import com.simplon.api.service.PlayerService;
 
 @RestController
@@ -22,17 +27,22 @@ public class PlayerController {
 
     //Retourne tout les jeux sur le chemin http://localhost:9000/players
     @GetMapping("/players")
-    public Iterable<Player> allPlayers() {
-        return playerService.getAllPlayers();
+    public Iterable<PlayerDTO> allPlayers() {
+        List<PlayerDTO> playersDTO = new ArrayList<PlayerDTO>();
+        Iterable<Player> players = playerService.getAllPlayers();
+        for(Player player : players) {
+            playersDTO.add(new PlayerDTO(player));
+        }
+        return playersDTO;
     }
 
      //Retourne un jeux (si il y en a un) sur le chemin http://localhost:9000/player/(id)
     @GetMapping("/player/{id}")
-    public Player player(@PathVariable("id") int id) {
+    public PlayerDTO player(@PathVariable("id") int id) {
         // Je récupère mon joueur
         Optional<Player> p = playerService.getPlayer(id);
         if(p.isPresent()) {
-            return p.get();
+            return new PlayerDTO(p.get());
         } else {
             return null;
         }
@@ -72,6 +82,20 @@ public class PlayerController {
                 playerToUpdate.setNickname(player.getNickname());
             }
             return playerService.savePlayer(playerToUpdate);
+        }
+        return null;
+    }
+
+    @GetMapping("/player/{id}/contests")
+    public Iterable<ContestDTO> contests(@PathVariable("id") long id) {
+        Optional<Player> p = playerService.getPlayer(id);
+        if(p.isPresent()) {
+            List<Contest> contests = p.get().getContests();
+            List<ContestDTO> contestsDTO = new ArrayList<ContestDTO>();
+            for(Contest contest : contests) {
+                contestsDTO.add(new ContestDTO(contest));
+            }
+            return contestsDTO;
         }
         return null;
     }
