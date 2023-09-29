@@ -22,10 +22,15 @@ public class GameDTO {
         this.min = game.getMin();
         this.max = game.getMax();
         List<String> strings = new ArrayList<String>();
-        for (Contest contest : game.getContests()) {
-            strings.add("Partie n°" + contest.getId() + "du" + contest.getStartDate());
-        }
 
-        this.contest = strings;
+        // this.contest = strings;
+        if (game.getContests() != null) {
+            for (Contest contest : game.getContests()) {
+                strings.add("Partie n°" + contest.getId() + "du" + contest.getStartDate());
+            }
+            this.contest = strings;
+        } else {
+            this.contest = null;
+        }
     }
 }

@@ -30,7 +30,12 @@ public class PlayerDTO {
             }
         }
 
-        this.contests = player.getContests().size();
+        if( player.getContests() !=null) {
+            this.contests = player.getContests().size();
+        } else {
+            this.contests = 0;
+        }
+        
     }
 
 }

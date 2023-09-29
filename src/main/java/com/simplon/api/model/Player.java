@@ -1,5 +1,6 @@
 package com.simplon.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -32,6 +33,6 @@ public class Player {
     joinColumns = {@JoinColumn(name = "player_id")},
     inverseJoinColumns = {@JoinColumn(name = "contest_id")}
     )
-    private List<Contest> contests;
+    private List<Contest> contests = new ArrayList<Contest>();
     
 }
