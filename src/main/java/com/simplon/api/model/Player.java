@@ -3,6 +3,7 @@ package com.simplon.api.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Player {
     @OneToMany(mappedBy = "winner")
     private List<Contest> wins;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "player_contest",
     joinColumns = {@JoinColumn(name = "player_id")},
     inverseJoinColumns = {@JoinColumn(name = "contest_id")}

@@ -50,8 +50,8 @@ public class PlayerController {
 
     //  Ajoute un joueur
     @PostMapping("/player")
-    public Player insertPlayer(@RequestBody Player p) {
-        return playerService.savePlayer(p);
+    public PlayerDTO insertPlayer(@RequestBody Player p) {
+        return new PlayerDTO(playerService.savePlayer(p));
     }
 
     // Supprime un joueur 
@@ -69,7 +69,7 @@ public class PlayerController {
 
     // Modifie un joueur 
     @PutMapping("/player/{id}")
-    public Player updatPlayer(@PathVariable("id") long id, @RequestBody Player player) {
+    public PlayerDTO updatPlayer(@PathVariable("id") long id, @RequestBody Player player) {
         Optional<Player> p = playerService.getPlayer(id); 
         if(p.isPresent()) {
             Player playerToUpdate = p.get();
@@ -81,7 +81,7 @@ public class PlayerController {
             if(player.getNickname() !=null) {
                 playerToUpdate.setNickname(player.getNickname());
             }
-            return playerService.savePlayer(playerToUpdate);
+            return new PlayerDTO(playerService.savePlayer(playerToUpdate));
         }
         return null;
     }

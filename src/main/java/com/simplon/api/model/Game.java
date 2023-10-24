@@ -25,6 +25,17 @@ public class Game {
 
     @OneToMany(mappedBy = "game")
     private List<Contest> contests;
+
+    public Game(Long id, String title, Integer min, Integer max) {
+        this.id = id;
+        this.title = title;
+        this.min = min;
+        this.max = max;
+    }
+
+    public Game() {
+        
+    }
 }
 
 
